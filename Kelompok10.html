@@ -2519,16 +2519,8 @@ Note
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifikasi NA dan ubah tanda hubung (&quot;-&quot;) pada nilai Statistika milik Dewi menjadi NA</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Statistika[nilai_raw<span class="sc">$</span>Statistika <span class="sc">==</span> <span class="st">&quot;-&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Matematika[nilai_raw<span class="sc">$</span>Matematika <span class="sc">==</span> <span class="st">&quot;NA&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="lakukan-imputasi-terhadap-nilai-statistika-yang-kosong-menggunakan-rata-rata-nilai-statistika-mahasiswa-lainnya-yang-tersedia." class="level4">
-<h4 class="anchored" data-anchor-id="lakukan-imputasi-terhadap-nilai-statistika-yang-kosong-menggunakan-rata-rata-nilai-statistika-mahasiswa-lainnya-yang-tersedia.">3. Lakukan imputasi terhadap nilai Statistika yang kosong menggunakan rata-rata nilai Statistika mahasiswa lainnya yang tersedia.</h4>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Masukkan nilai statistika yang kosong</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rata_statistika <span class="ot">&lt;-</span> <span class="fu">mean</span>(nilai_raw<span class="sc">$</span>Statistika, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Statistika[<span class="fu">is.na</span>(nilai_raw<span class="sc">$</span>Statistika)] <span class="ot">&lt;-</span> rata_statistika</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>nilai_raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Matematika[nilai_raw<span class="sc">$</span>Matematika <span class="sc">==</span> <span class="st">&quot;NA&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>nilai_raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Nama Matematika Statistika Umur
 1  Andi         80         85   21
@@ -2537,20 +2529,49 @@ Note
 4  Dewi         75       &lt;NA&gt;   21
 5  Andi         80         85   21</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ubah jenis data statistika dan matematik menjadi numerik</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Matematika <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(nilai_raw<span class="sc">$</span>Matematika)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Statistika <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(nilai_raw<span class="sc">$</span>Statistika)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>nilai_raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Nama Matematika Statistika Umur
+1  Andi         80         85   21
+2  Budi         90         88   20
+3 Citra         NA         78   22
+4  Dewi         75         NA   21
+5  Andi         80         85   21</code></pre>
+</div>
+</div>
+</section>
+<section id="lakukan-imputasi-terhadap-nilai-statistika-yang-kosong-menggunakan-rata-rata-nilai-statistika-mahasiswa-lainnya-yang-tersedia." class="level4">
+<h4 class="anchored" data-anchor-id="lakukan-imputasi-terhadap-nilai-statistika-yang-kosong-menggunakan-rata-rata-nilai-statistika-mahasiswa-lainnya-yang-tersedia.">3. Lakukan imputasi terhadap nilai Statistika yang kosong menggunakan rata-rata nilai Statistika mahasiswa lainnya yang tersedia.</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Masukkan nilai statistika yang kosong</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rata_statistika <span class="ot">&lt;-</span> <span class="fu">mean</span>(nilai_raw<span class="sc">$</span>Statistika, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Statistika[<span class="fu">is.na</span>(nilai_raw<span class="sc">$</span>Statistika)] <span class="ot">&lt;-</span> rata_statistika</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nilai_raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Nama Matematika Statistika Umur
+1  Andi         80         85   21
+2  Budi         90         88   20
+3 Citra         NA         78   22
+4  Dewi         75         84   21
+5  Andi         80         85   21</code></pre>
+</div>
 </div>
 </section>
 <section id="buat-kolom-baru-bernama-status_umur-menggunakan-fungsi-ifelse-dengan-ketentuan-dewasa-jika-umur-21-tahun-muda-jika-umur-21-tahun." class="level4">
 <h4 class="anchored" data-anchor-id="buat-kolom-baru-bernama-status_umur-menggunakan-fungsi-ifelse-dengan-ketentuan-dewasa-jika-umur-21-tahun-muda-jika-umur-21-tahun.">4. Buat kolom baru bernama Status_Umur menggunakan fungsi ifelse() dengan ketentuan: Dewasa jika umur ≥ 21 tahun; Muda jika umur &lt; 21 tahun.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Membuat kolom baru </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Status_Umur <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(nilai_raw<span class="sc">$</span>Umur <span class="sc">&gt;=</span> <span class="dv">21</span>, <span class="st">&quot;Dewasa&quot;</span>, <span class="st">&quot;Muda&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>nilai_raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Membuat kolom baru </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>nilai_raw<span class="sc">$</span>Status_Umur <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(nilai_raw<span class="sc">$</span>Umur <span class="sc">&gt;=</span> <span class="dv">21</span>, <span class="st">&quot;Dewasa&quot;</span>, <span class="st">&quot;Muda&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>nilai_raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Nama Matematika Statistika Umur Status_Umur
 1  Andi         80         85   21      Dewasa
 2  Budi         90         88   20        Muda
-3 Citra       &lt;NA&gt;         78   22      Dewasa
-4  Dewi         75       &lt;NA&gt;   21      Dewasa
+3 Citra         NA         78   22      Dewasa
+4  Dewi         75         84   21      Dewasa
 5  Andi         80         85   21      Dewasa</code></pre>
 </div>
 </div>
@@ -2558,13 +2579,13 @@ Note
 <section id="identifikasi-dan-hapus-baris-pengamatan-yang-duplikat." class="level4">
 <h4 class="anchored" data-anchor-id="identifikasi-dan-hapus-baris-pengamatan-yang-duplikat.">5. Identifikasi dan hapus baris pengamatan yang duplikat.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifikasi baris pengamatan yang duplikat.</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">duplicated</span>(nilai_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifikasi baris pengamatan yang duplikat.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">duplicated</span>(nilai_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE FALSE FALSE  TRUE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil barisan yang mengandung duplikat</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>nilai_raw[<span class="fu">duplicated</span>(nilai_raw) <span class="sc">|</span> <span class="fu">duplicated</span>(nilai_raw, <span class="at">fromLast =</span> <span class="cn">TRUE</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil barisan yang mengandung duplikat</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>nilai_raw[<span class="fu">duplicated</span>(nilai_raw) <span class="sc">|</span> <span class="fu">duplicated</span>(nilai_raw, <span class="at">fromLast =</span> <span class="cn">TRUE</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Nama Matematika Statistika Umur Status_Umur
 1 Andi         80         85   21      Dewasa
@@ -2572,23 +2593,23 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menghapus baris pengamatan yang duplikat          </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nilai_bersih <span class="ot">&lt;-</span> <span class="fu">unique</span>(nilai_raw)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>nilai_bersih</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menghapus baris pengamatan yang duplikat          </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>nilai_bersih <span class="ot">&lt;-</span> <span class="fu">unique</span>(nilai_raw)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>nilai_bersih</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Nama Matematika Statistika Umur Status_Umur
 1  Andi         80         85   21      Dewasa
 2  Budi         90         88   20        Muda
-3 Citra       &lt;NA&gt;         78   22      Dewasa
-4  Dewi         75       &lt;NA&gt;   21      Dewasa</code></pre>
+3 Citra         NA         78   22      Dewasa
+4  Dewi         75         84   21      Dewasa</code></pre>
 </div>
 </div>
 </section>
 <section id="simpan-dataset-yang-telah-dibersihkan-ke-dalam-file-bernama-nilai_bersih.csv" class="level4">
 <h4 class="anchored" data-anchor-id="simpan-dataset-yang-telah-dibersihkan-ke-dalam-file-bernama-nilai_bersih.csv">6. Simpan dataset yang telah dibersihkan ke dalam file bernama <code>nilai_bersih.csv</code></h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menyimpan data ke file csv</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(nilai_bersih, <span class="st">&quot;nilai_bersih.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menyimpan data ke file csv</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(nilai_bersih, <span class="st">&quot;nilai_bersih.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -2795,24 +2816,24 @@ Note
 <section id="buat-data-frame-bernama-profil-secara-manual-di-r-berdasarkan-tabel-2." class="level4">
 <h4 class="anchored" data-anchor-id="buat-data-frame-bernama-profil-secara-manual-di-r-berdasarkan-tabel-2.">1. Buat data frame bernama profil secara manual di R berdasarkan Tabel 2.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 1: Membuat Data Frame Profil</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>profil <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">No     =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">v1     =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">8</span>, <span class="dv">14</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>),</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">v2     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">13</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">13</span>, <span class="dv">10</span>),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">v3     =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">v4     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="cn">NA</span>, <span class="dv">16</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">v5     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">17</span>),</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">v6     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">7</span>),</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">v7     =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">14</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">13</span>, <span class="dv">9</span>),</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">v8     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">10</span>),</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">v9     =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>),</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">v10    =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">7</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Menampilkan data frame profil</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>profil</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 1: Membuat Data Frame Profil</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>profil <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">No     =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">v1     =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">8</span>, <span class="dv">14</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">v2     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">13</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">13</span>, <span class="dv">10</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">v3     =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">v4     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="cn">NA</span>, <span class="dv">16</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">v5     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">17</span>),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">v6     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">7</span>),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">v7     =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">14</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">13</span>, <span class="dv">9</span>),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">v8     =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">10</span>),</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">v9     =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">v10    =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">7</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Menampilkan data frame profil</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>profil</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   No gender v1 v2 v3 v4 v5 v6 v7 v8 v9 v10
 1   1      f  8  9  5  9  9  9  5  9 11   8
@@ -2831,11 +2852,11 @@ Note
 <section id="lakukan-penyaringan-subsetting-sehingga-hanya-menyisakan-pengamatan-yang-memenuhi-salah-satu-kondisi-berikut-gender-laki-laki-m-dan-v1-9-atau-gender-perempuan-f-dan-v3-10." class="level4">
 <h4 class="anchored" data-anchor-id="lakukan-penyaringan-subsetting-sehingga-hanya-menyisakan-pengamatan-yang-memenuhi-salah-satu-kondisi-berikut-gender-laki-laki-m-dan-v1-9-atau-gender-perempuan-f-dan-v3-10.">2. Lakukan penyaringan (subsetting) sehingga hanya menyisakan pengamatan yang memenuhi salah satu kondisi berikut: gender laki-laki (m) dan v1 &gt; 9 ; atau gender perempuan (f) dan v3 &lt;= 10.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 2: Subsetting Data</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>profil_subset <span class="ot">&lt;-</span> <span class="fu">subset</span>(profil, (gender <span class="sc">==</span> <span class="st">&quot;m&quot;</span> <span class="sc">&amp;</span> v1 <span class="sc">&gt;</span> <span class="dv">9</span>) <span class="sc">|</span> (gender <span class="sc">==</span> <span class="st">&quot;f&quot;</span> <span class="sc">&amp;</span> v3 <span class="sc">&lt;=</span> <span class="dv">10</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Menampilkan hasil subsetting</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>profil_subset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 2: Subsetting Data</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>profil_subset <span class="ot">&lt;-</span> <span class="fu">subset</span>(profil, (gender <span class="sc">==</span> <span class="st">&quot;m&quot;</span> <span class="sc">&amp;</span> v1 <span class="sc">&gt;</span> <span class="dv">9</span>) <span class="sc">|</span> (gender <span class="sc">==</span> <span class="st">&quot;f&quot;</span> <span class="sc">&amp;</span> v3 <span class="sc">&lt;=</span> <span class="dv">10</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Menampilkan hasil subsetting</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>profil_subset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   No gender v1 v2 v3 v4 v5 v6 v7 v8 v9 v10
 1   1      f  8  9  5  9  9  9  5  9 11   8
@@ -2850,11 +2871,11 @@ Note
 <section id="urutkan-data-hasil-penyaringan-secara-multikriteria-dengan-ketentuan-gender-diurutkan-secara-descending-untuk-pengamatan-dengan-gender-yang-sama-v5-diurutkan-secara-ascending." class="level4">
 <h4 class="anchored" data-anchor-id="urutkan-data-hasil-penyaringan-secara-multikriteria-dengan-ketentuan-gender-diurutkan-secara-descending-untuk-pengamatan-dengan-gender-yang-sama-v5-diurutkan-secara-ascending.">3. Urutkan data hasil penyaringan secara multikriteria, dengan ketentuan: gender diurutkan secara descending; untuk pengamatan dengan gender yang sama, v5 diurutkan secara ascending.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 3: Pengurutan Multikriteria</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>profil_sorted <span class="ot">&lt;-</span> profil_subset[<span class="fu">order</span>(<span class="sc">-</span><span class="fu">xtfrm</span>(profil_subset<span class="sc">$</span>gender), profil_subset<span class="sc">$</span>v5), ]</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Menampilkan hasil setelah diurutkan</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>profil_sorted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 3: Pengurutan Multikriteria</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>profil_sorted <span class="ot">&lt;-</span> profil_subset[<span class="fu">order</span>(<span class="sc">-</span><span class="fu">xtfrm</span>(profil_subset<span class="sc">$</span>gender), profil_subset<span class="sc">$</span>v5), ]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Menampilkan hasil setelah diurutkan</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>profil_sorted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   No gender v1 v2 v3 v4 v5 v6 v7 v8 v9 v10
 4   4      m 14  9  8 NA 11 10  6 11 11   8
@@ -2869,8 +2890,8 @@ Note
 <section id="simpan-hasil-akhir-ke-dalam-file-bernama-profil_filter.csv." class="level4">
 <h4 class="anchored" data-anchor-id="simpan-hasil-akhir-ke-dalam-file-bernama-profil_filter.csv.">4. Simpan hasil akhir ke dalam file bernama profil_filter.csv.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 4: Menyimpan Hasil Akhir ke File CSV</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(profil_sorted, <span class="at">file =</span> <span class="st">&quot;profil_filter.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Langkah 4: Menyimpan Hasil Akhir ke File CSV</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(profil_sorted, <span class="at">file =</span> <span class="st">&quot;profil_filter.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -2901,21 +2922,21 @@ Note
 </div>
 <p>Diberikan dua data frame mengenai skor penjualan mingguan beberapa toko berikut.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_sales <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id_toko =</span> <span class="fu">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>), </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Minggu1 =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">150</span>, <span class="dv">95</span>), </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Minggu2 =</span> <span class="fu">c</span>(<span class="dv">135</span>, <span class="dv">140</span>, <span class="dv">110</span>) ) </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>df_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T4&quot;</span>), </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kota =</span> <span class="fu">c</span>(<span class="st">&quot;Jakarta&quot;</span>, <span class="st">&quot;Bandung&quot;</span>, <span class="st">&quot;Surabaya&quot;</span>) )</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>df_sales</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_sales <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id_toko =</span> <span class="fu">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>), </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Minggu1 =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">150</span>, <span class="dv">95</span>), </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Minggu2 =</span> <span class="fu">c</span>(<span class="dv">135</span>, <span class="dv">140</span>, <span class="dv">110</span>) ) </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>df_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T4&quot;</span>), </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kota =</span> <span class="fu">c</span>(<span class="st">&quot;Jakarta&quot;</span>, <span class="st">&quot;Bandung&quot;</span>, <span class="st">&quot;Surabaya&quot;</span>) )</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>df_sales</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id_toko Minggu1 Minggu2
 1      T1     120     135
 2      T2     150     140
 3      T3      95     110</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_info</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_info</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id     Kota
 1 T1  Jakarta
@@ -2926,13 +2947,13 @@ Note
 <section id="gabungkan-df_sales-dan-df_info-menggunakan-fungsi-merge-dengan-metode-full-outer-join-sehingga-seluruh-toko-dari-kedua-data-frame-tetap-disertakan.-perhatikan-bahwa-nama-variabel-kunci-pada-kedua-data-frame-berbeda-yaitu-id_toko-pada-df_sales-dan-id-pada-df_info.-gunakan-argumen-penggabungan-yang-sesuai." class="level4">
 <h4 class="anchored" data-anchor-id="gabungkan-df_sales-dan-df_info-menggunakan-fungsi-merge-dengan-metode-full-outer-join-sehingga-seluruh-toko-dari-kedua-data-frame-tetap-disertakan.-perhatikan-bahwa-nama-variabel-kunci-pada-kedua-data-frame-berbeda-yaitu-id_toko-pada-df_sales-dan-id-pada-df_info.-gunakan-argumen-penggabungan-yang-sesuai.">1. Gabungkan df_sales dan df_info menggunakan fungsi merge() dengan metode Full Outer Join, sehingga seluruh toko dari kedua data frame tetap disertakan. Perhatikan bahwa nama variabel kunci pada kedua data frame berbeda, yaitu id_toko pada df_sales dan id pada df_info. Gunakan argumen penggabungan yang sesuai.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_gabung <span class="ot">&lt;-</span> <span class="fu">merge</span>( </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  df_sales, </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  df_info, </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by.x =</span> <span class="st">&quot;id_toko&quot;</span>, </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">by.y =</span> <span class="st">&quot;id&quot;</span>, </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">all =</span> <span class="cn">TRUE</span> ) </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>df_gabung</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_gabung <span class="ot">&lt;-</span> <span class="fu">merge</span>( </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  df_sales, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  df_info, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by.x =</span> <span class="st">&quot;id_toko&quot;</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">by.y =</span> <span class="st">&quot;id&quot;</span>, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">all =</span> <span class="cn">TRUE</span> ) </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>df_gabung</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id_toko Minggu1 Minggu2     Kota
 1      T1     120     135  Jakarta
@@ -2945,17 +2966,17 @@ Note
 <section id="ubah-struktur-data-hasil-penggabungan-dari-format-wide-menjadi-long-sehingga-minggu1-dan-minggu2-digabung-menjadi-satu-kolom-bernama-waktu-nilai-penjualan-disimpan-dalam-satu-kolom-bernama-penjualan." class="level4">
 <h4 class="anchored" data-anchor-id="ubah-struktur-data-hasil-penggabungan-dari-format-wide-menjadi-long-sehingga-minggu1-dan-minggu2-digabung-menjadi-satu-kolom-bernama-waktu-nilai-penjualan-disimpan-dalam-satu-kolom-bernama-penjualan.">2. Ubah struktur data hasil penggabungan dari format Wide menjadi Long, sehingga: Minggu1 dan Minggu2 digabung menjadi satu kolom bernama Waktu; Nilai penjualan disimpan dalam satu kolom bernama Penjualan.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> <span class="fu">reshape</span>(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  df_gabung,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">varying =</span> <span class="fu">c</span>(<span class="st">&quot;Minggu1&quot;</span>, <span class="st">&quot;Minggu2&quot;</span>),</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">v.names =</span> <span class="st">&quot;Penjualan&quot;</span>,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">timevar =</span> <span class="st">&quot;Waktu&quot;</span>,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="fu">c</span>(<span class="st">&quot;Minggu1&quot;</span>, <span class="st">&quot;Minggu2&quot;</span>),</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">idvar =</span> <span class="fu">c</span>(<span class="st">&quot;id_toko&quot;</span>),</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction =</span> <span class="st">&quot;long&quot;</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(data_long) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>data_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> <span class="fu">reshape</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  df_gabung,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">varying =</span> <span class="fu">c</span>(<span class="st">&quot;Minggu1&quot;</span>, <span class="st">&quot;Minggu2&quot;</span>),</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">v.names =</span> <span class="st">&quot;Penjualan&quot;</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">timevar =</span> <span class="st">&quot;Waktu&quot;</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="fu">c</span>(<span class="st">&quot;Minggu1&quot;</span>, <span class="st">&quot;Minggu2&quot;</span>),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">idvar =</span> <span class="fu">c</span>(<span class="st">&quot;id_toko&quot;</span>),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction =</span> <span class="st">&quot;long&quot;</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(data_long) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>data_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id_toko     Kota   Waktu Penjualan
 1      T1  Jakarta Minggu1       120
@@ -2972,7 +2993,7 @@ Note
 <section id="simpan-dataset-dalam-format-long-tersebut-ke-dalam-file-bernama-penjualan_long.csv." class="level4">
 <h4 class="anchored" data-anchor-id="simpan-dataset-dalam-format-long-tersebut-ke-dalam-file-bernama-penjualan_long.csv.">4. Simpan dataset dalam format Long tersebut ke dalam file bernama penjualan_long.csv.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data_long,<span class="st">&quot;penjualan_long.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data_long,<span class="st">&quot;penjualan_long.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -3018,8 +3039,8 @@ Note
 <section id="kenali-struktur-dataset-co2-dan-identifikasi-peran-peubah-plant-type-treatment-conc-dan-uptake-kemudian-buat-grafik-menggunakan-base-r-untuk-menunjukkan-hubungan-conc-dan-uptake-dengan-mengatur-bentuk-dan-ukuran-titik-warna-judul-label-sumbu-serta-rentang-sumbu-lalu-tambahkan-minimal-dua-elemen-grafik-menggunakan-points-lines-abline-atau-text." class="level4">
 <h4 class="anchored" data-anchor-id="kenali-struktur-dataset-co2-dan-identifikasi-peran-peubah-plant-type-treatment-conc-dan-uptake-kemudian-buat-grafik-menggunakan-base-r-untuk-menunjukkan-hubungan-conc-dan-uptake-dengan-mengatur-bentuk-dan-ukuran-titik-warna-judul-label-sumbu-serta-rentang-sumbu-lalu-tambahkan-minimal-dua-elemen-grafik-menggunakan-points-lines-abline-atau-text.">1. Kenali struktur dataset CO2 dan identifikasi peran peubah Plant, Type, Treatment, conc, dan uptake, kemudian buat grafik menggunakan base R untuk menunjukkan hubungan conc dan uptake dengan mengatur bentuk dan ukuran titik, warna, judul, label sumbu, serta rentang sumbu, lalu tambahkan minimal dua elemen grafik menggunakan points(), lines(), abline(), atau text().</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengenali struktur dataset CO2</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(CO2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengenali struktur dataset CO2</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(CO2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Classes &#39;nfnGroupedData&#39;, &#39;nfGroupedData&#39;, &#39;groupedData&#39; and &#39;data.frame&#39;:  84 obs. of  5 variables:
  $ Plant    : Ord.factor w/ 12 levels &quot;Qn1&quot;&lt;&quot;Qn2&quot;&lt;&quot;Qn3&quot;&lt;..: 1 1 1 1 1 1 1 2 2 2 ...
@@ -3038,7 +3059,7 @@ Note
   ..$ x: chr &quot;(uL/L)&quot;
   ..$ y: chr &quot;(umol/m^2 s)&quot;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CO2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CO2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Plant   Type  Treatment conc uptake
 1   Qn1 Quebec nonchilled   95   16.0
@@ -3048,48 +3069,48 @@ Note
 5   Qn1 Quebec nonchilled  500   35.3
 6   Qn1 Quebec nonchilled  675   39.2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(CO2<span class="sc">$</span>conc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(CO2<span class="sc">$</span>conc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 95</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(CO2<span class="sc">$</span>conc) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(CO2<span class="sc">$</span>conc) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1000</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(CO2<span class="sc">$</span>uptake)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(CO2<span class="sc">$</span>uptake)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7.7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(CO2<span class="sc">$</span>uptake)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(CO2<span class="sc">$</span>uptake)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 45.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifikasi peran peubah:</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Plant    : Categorical (Ordered Factor) -&gt; Identitas individu tanaman</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Type     : Categorical (Factor)         -&gt; Asal tanaman (Quebec / Mississippi)</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - Treatment: Categorical (Factor)         -&gt; Perlakuan (nonchilled / chilled)</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - conc     : Numerik (Kuantitatif)       -&gt; Konsentrasi CO2 (ppm) [Peubah Bebas/X]</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - uptake   : Numerik (Kuantitatif)       -&gt; Tingkat penyerapan CO2 (umol/m^2 sec) [Peubah Terikat/Y]</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot menggunakan Base R</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CO2<span class="sc">$</span>conc, CO2<span class="sc">$</span>uptake,</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Hubungan Konsentrasi dan Penyerapan CO2&quot;</span>,</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Konsentrasi CO2 (conc)&quot;</span>,</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Penyerapan CO2 (uptake)&quot;</span>,</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>),</span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>),</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>,</span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Elemen Tambahan 1: Garis tren (lines)</span></span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(CO2<span class="sc">$</span>conc, CO2<span class="sc">$</span>uptake), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Elemen Tambahan 2: Garis rata-rata penyerapan (abline)</span></span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(CO2<span class="sc">$</span>uptake), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Elemen Tambahan 3: Catatan teks pada grafik (text)</span></span>
-<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">800</span>, <span class="at">y =</span> <span class="fu">mean</span>(CO2<span class="sc">$</span>uptake) <span class="sc">+</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">&quot;Rata-rata Uptake&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifikasi peran peubah:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Plant    : Categorical (Ordered Factor) -&gt; Identitas individu tanaman</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Type     : Categorical (Factor)         -&gt; Asal tanaman (Quebec / Mississippi)</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - Treatment: Categorical (Factor)         -&gt; Perlakuan (nonchilled / chilled)</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - conc     : Numerik (Kuantitatif)       -&gt; Konsentrasi CO2 (ppm) [Peubah Bebas/X]</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - uptake   : Numerik (Kuantitatif)       -&gt; Tingkat penyerapan CO2 (umol/m^2 sec) [Peubah Terikat/Y]</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot menggunakan Base R</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CO2<span class="sc">$</span>conc, CO2<span class="sc">$</span>uptake,</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Hubungan Konsentrasi dan Penyerapan CO2&quot;</span>,</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Konsentrasi CO2 (conc)&quot;</span>,</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Penyerapan CO2 (uptake)&quot;</span>,</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>),</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>),</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>,</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Elemen Tambahan 1: Garis tren (lines)</span></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(CO2<span class="sc">$</span>conc, CO2<span class="sc">$</span>uptake), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Elemen Tambahan 2: Garis rata-rata penyerapan (abline)</span></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(CO2<span class="sc">$</span>uptake), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Elemen Tambahan 3: Catatan teks pada grafik (text)</span></span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">800</span>, <span class="at">y =</span> <span class="fu">mean</span>(CO2<span class="sc">$</span>uptake) <span class="sc">+</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">&quot;Rata-rata Uptake&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3115,26 +3136,26 @@ Note
 <section id="buat-satu-tampilan-grafik-berukuran-2-2-yang-terdiri-atas-empat-jenis-visualisasi-berbeda-untuk-mengeksplorasi-conc-uptake-type-dan-treatment-tentukan-sendiri-jenis-grafik-yang-paling-sesuai-dan-berikan-judul-yang-jelas-pada-setiap-grafik." class="level4">
 <h4 class="anchored" data-anchor-id="buat-satu-tampilan-grafik-berukuran-2-2-yang-terdiri-atas-empat-jenis-visualisasi-berbeda-untuk-mengeksplorasi-conc-uptake-type-dan-treatment-tentukan-sendiri-jenis-grafik-yang-paling-sesuai-dan-berikan-judul-yang-jelas-pada-setiap-grafik.">2. Buat satu tampilan grafik berukuran 2 × 2 yang terdiri atas empat jenis visualisasi berbeda untuk mengeksplorasi conc, uptake, Type, dan Treatment; tentukan sendiri jenis grafik yang paling sesuai dan berikan judul yang jelas pada setiap grafik.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengatur layout 2x2</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 1: Scatter plot conc vs uptake</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CO2<span class="sc">$</span>conc, CO2<span class="sc">$</span>uptake, <span class="at">col =</span> <span class="st">&quot;forestgreen&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>,</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Conc vs Uptake&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Conc&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Uptake&quot;</span>) </span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 2: Histogram distribusi uptake</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(CO2<span class="sc">$</span>uptake, <span class="at">col =</span> <span class="st">&quot;pink&quot;</span>,</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Distribusi Uptake CO2&quot;</span>,</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Uptake&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frekuensi&quot;</span>)</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 3: Boxplot uptake berdasarkan Treatment</span></span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(uptake <span class="sc">~</span> Treatment, <span class="at">data =</span> CO2, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;lightgreen&quot;</span>, <span class="st">&quot;coral&quot;</span>),</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Uptake Berdasarkan Treatment&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Treatment&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Uptake&quot;</span>)</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 4: Barplot distribusi jumlah data berdasarkan Type &amp; Treatment</span></span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">table</span>(CO2<span class="sc">$</span>Treatment)</span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(counts, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;plum&quot;</span>, <span class="st">&quot;lightblue&quot;</span>),</span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Jumlah Pengamatan&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Type&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frekuensi&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengatur layout 2x2</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 1: Scatter plot conc vs uptake</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CO2<span class="sc">$</span>conc, CO2<span class="sc">$</span>uptake, <span class="at">col =</span> <span class="st">&quot;forestgreen&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Conc vs Uptake&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Conc&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Uptake&quot;</span>) </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 2: Histogram distribusi uptake</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(CO2<span class="sc">$</span>uptake, <span class="at">col =</span> <span class="st">&quot;pink&quot;</span>,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Distribusi Uptake CO2&quot;</span>,</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Uptake&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frekuensi&quot;</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 3: Boxplot uptake berdasarkan Treatment</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(uptake <span class="sc">~</span> Treatment, <span class="at">data =</span> CO2, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;lightgreen&quot;</span>, <span class="st">&quot;coral&quot;</span>),</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Uptake Berdasarkan Treatment&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Treatment&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Uptake&quot;</span>)</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik 4: Barplot distribusi jumlah data berdasarkan Type &amp; Treatment</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">table</span>(CO2<span class="sc">$</span>Treatment)</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(counts, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;plum&quot;</span>, <span class="st">&quot;lightblue&quot;</span>),</span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Jumlah Pengamatan&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Type&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frekuensi&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3142,18 +3163,18 @@ Note
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengembalikan layout ke semula</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengembalikan layout ke semula</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="gunakan-qplot-untuk-membuat-visualisasi-cepat-hubungan-conc-dan-uptake-berdasarkan-treatment-kemudian-buat-kembali-visualisasi-tersebut-menggunakan-ggplot2-dengan-memetakan-treatment-dan-type-ke-atribut-visual-yang-berbeda-di-dalam-aes-serta-menggunakan-geom_-yang-sesuai." class="level4">
 <h4 class="anchored" data-anchor-id="gunakan-qplot-untuk-membuat-visualisasi-cepat-hubungan-conc-dan-uptake-berdasarkan-treatment-kemudian-buat-kembali-visualisasi-tersebut-menggunakan-ggplot2-dengan-memetakan-treatment-dan-type-ke-atribut-visual-yang-berbeda-di-dalam-aes-serta-menggunakan-geom_-yang-sesuai.">3. Gunakan qplot() untuk membuat visualisasi cepat hubungan conc dan uptake berdasarkan Treatment, kemudian buat kembali visualisasi tersebut menggunakan ggplot2 dengan memetakan Treatment dan Type ke atribut visual yang berbeda di dalam aes() serta menggunakan geom_* yang sesuai.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisasi cepat menggunakan qplot()</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(conc, uptake, <span class="at">data =</span> CO2, <span class="at">color =</span> Treatment,</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Visualisasi Cepat qplot: Conc vs Uptake&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisasi cepat menggunakan qplot()</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(conc, uptake, <span class="at">data =</span> CO2, <span class="at">color =</span> Treatment,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Visualisasi Cepat qplot: Conc vs Uptake&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3161,11 +3182,11 @@ Note
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisasi menggunakan ggplot2 (Treatment &amp; Type ke atribut visual berbeda)</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(CO2, <span class="fu">aes</span>(<span class="at">x =</span> conc, <span class="at">y =</span> uptake, <span class="at">color =</span> Treatment, <span class="at">shape =</span> Type)) <span class="sc">+</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Visualisasi ggplot2: Conc vs Uptake berdasarkan Treatment &amp; Type&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisasi menggunakan ggplot2 (Treatment &amp; Type ke atribut visual berbeda)</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(CO2, <span class="fu">aes</span>(<span class="at">x =</span> conc, <span class="at">y =</span> uptake, <span class="at">color =</span> Treatment, <span class="at">shape =</span> Type)) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Visualisasi ggplot2: Conc vs Uptake berdasarkan Treatment &amp; Type&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3178,34 +3199,34 @@ Note
 <section id="kembangkan-grafik-ggplot2-tersebut-dengan-menambahkan-minimal-satu-stat_-satu-scale_-serta-salah-satu-coord_-kemudian-lengkapi-grafik-menggunakan-labs-dan-theme-atau-salah-satu-tema-siap-pakai-agar-grafik-lebih-informatif-dan-mudah-dibaca." class="level4">
 <h4 class="anchored" data-anchor-id="kembangkan-grafik-ggplot2-tersebut-dengan-menambahkan-minimal-satu-stat_-satu-scale_-serta-salah-satu-coord_-kemudian-lengkapi-grafik-menggunakan-labs-dan-theme-atau-salah-satu-tema-siap-pakai-agar-grafik-lebih-informatif-dan-mudah-dibaca.">4. Kembangkan grafik ggplot2 tersebut dengan menambahkan minimal satu stat_<em>, satu scale_</em>, serta salah satu coord_*, kemudian lengkapi grafik menggunakan labs() dan theme() atau salah satu tema siap pakai agar grafik lebih informatif dan mudah dibaca.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(CO2, <span class="fu">aes</span>(<span class="at">x =</span> conc, <span class="at">y =</span> uptake, <span class="at">color =</span> Treatment, <span class="at">shape =</span> Type)) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_* : Point dan Line</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_* : Stat smooth (garis regresi/tren)</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_* : Custom skala warna dan format sumbu</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;nonchilled&quot;</span> <span class="ot">=</span> <span class="st">&quot;#2E8B57&quot;</span>, <span class="st">&quot;chilled&quot;</span> <span class="ot">=</span> <span class="st">&quot;#DC143C&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">by =</span> <span class="dv">200</span>)) <span class="sc">+</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># coord_* : Membatasi tampilan koordinat sumbu</span></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">1000</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labs() : Label komprehensif</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Pengaruh Konsentrasi CO2 Terhadap Tingkat Penyerapan Tanaman&quot;</span>,</span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Perbandingan berdasarkan Asal Tanaman (Type) dan Perlakuan (Treatment)&quot;</span>,</span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Konsentrasi CO2 (ppm)&quot;</span>,</span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Tingkat Penyerapan CO2 (umol/m^2 sec)&quot;</span>,</span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Perlakuan&quot;</span>,</span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">&quot;Asal Tanaman&quot;</span>,</span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Sumber Data: Dataset bawaan R (CO2)&quot;</span></span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme() / Tema siap pakai</span></span>
-<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
-<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(CO2, <span class="fu">aes</span>(<span class="at">x =</span> conc, <span class="at">y =</span> uptake, <span class="at">color =</span> Treatment, <span class="at">shape =</span> Type)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_* : Point dan Line</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_* : Stat smooth (garis regresi/tren)</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_* : Custom skala warna dan format sumbu</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;nonchilled&quot;</span> <span class="ot">=</span> <span class="st">&quot;#2E8B57&quot;</span>, <span class="st">&quot;chilled&quot;</span> <span class="ot">=</span> <span class="st">&quot;#DC143C&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">by =</span> <span class="dv">200</span>)) <span class="sc">+</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># coord_* : Membatasi tampilan koordinat sumbu</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">1000</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labs() : Label komprehensif</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Pengaruh Konsentrasi CO2 Terhadap Tingkat Penyerapan Tanaman&quot;</span>,</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Perbandingan berdasarkan Asal Tanaman (Type) dan Perlakuan (Treatment)&quot;</span>,</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Konsentrasi CO2 (ppm)&quot;</span>,</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Tingkat Penyerapan CO2 (umol/m^2 sec)&quot;</span>,</span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Perlakuan&quot;</span>,</span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">&quot;Asal Tanaman&quot;</span>,</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Sumber Data: Dataset bawaan R (CO2)&quot;</span></span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme() / Tema siap pakai</span></span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3218,8 +3239,8 @@ Note
 <section id="simpan-grafik-akhir-menggunakan-ggsave-dalam-format-png-dengan-nama-co2_uptake_visualisasi.png-kemudian-tuliskan-interpretasi-mengenai-hubungan-antara-konsentrasi-co₂-dan-uptake-serta-perbedaan-pola-yang-terlihat-berdasarkan-type-dan-treatment." class="level4">
 <h4 class="anchored" data-anchor-id="simpan-grafik-akhir-menggunakan-ggsave-dalam-format-png-dengan-nama-co2_uptake_visualisasi.png-kemudian-tuliskan-interpretasi-mengenai-hubungan-antara-konsentrasi-co₂-dan-uptake-serta-perbedaan-pola-yang-terlihat-berdasarkan-type-dan-treatment.">5. Simpan grafik akhir menggunakan ggsave() dalam format PNG dengan nama co2_uptake_visualisasi.png, kemudian tuliskan interpretasi mengenai hubungan antara konsentrasi CO₂ dan uptake serta perbedaan pola yang terlihat berdasarkan Type dan Treatment.</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simpan grafik terakhir dari poin 4 ke format PNG</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;co2_uptake_visualisasi.png&quot;</span>, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simpan grafik terakhir dari poin 4 ke format PNG</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;co2_uptake_visualisasi.png&quot;</span>, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
